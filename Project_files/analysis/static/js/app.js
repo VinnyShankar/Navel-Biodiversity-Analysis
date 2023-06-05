@@ -8,6 +8,7 @@ async function plotbars()
     data.reverse()
     let trace1 =
     {
+        x:["a","b","c","d","e","f","g","h","i","j"],
         y:data,
         type:"bar",
         orientation:"h"
