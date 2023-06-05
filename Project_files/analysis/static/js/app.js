@@ -9,7 +9,8 @@ async function plotbars()
     let trace1 =
     {
         y:data,
-        type:"bar"
+        type:"bar",
+        orientation:"h"
     }
     bardata = [trace1]
     Plotly.newPlot("bar",bardata)
