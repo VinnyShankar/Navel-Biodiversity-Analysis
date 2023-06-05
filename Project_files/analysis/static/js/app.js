@@ -28,9 +28,10 @@ async function plotAll(sample_id)
                 .otu_labels.slice(0,10))
     
     // Metadata
-    let mdata = await d3.json(url)
+    let metaData = await d3.json(url)
                 .then(x => x.metadata
-                .filter(x => x.id == sample_id))
+                .filter(x => x.id == sample_id)[0])
+    console.log(metaData.id)
 
     // Reverse arrays for Plotly
     xdata.reverse()
