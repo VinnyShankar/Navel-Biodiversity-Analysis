@@ -3,9 +3,20 @@ const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/
 async function plotbars(sample_id)
 {
     let idFilter = sample_id
-    let xdata = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].sample_values.slice(0,10))
-    let ylabel = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].otu_ids.slice(0,10).map(x => "OTU " + x.toString()))
-    let yhover = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].otu_labels.slice(0,10))
+    let xdata = await d3.json(url)
+                .then(x => x.samples
+                .filter(x => x.id == idFilter)[0]
+                .sample_values
+                .slice(0,10))
+    let ylabel = await d3.json(url)
+                .then(x => x.samples
+                .filter(x => x.id == idFilter)[0]
+                .otu_ids.slice(0,10)
+                .map(x => "OTU " + x.toString()))
+    let yhover = await d3.json(url)
+                .then(x => x.samples
+                .filter(x => x.id == idFilter)[0]
+                .otu_labels.slice(0,10))
     // console.log(xdata)
     // console.log(ylabel)
     // console.log(yhover)
