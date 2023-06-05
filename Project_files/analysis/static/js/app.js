@@ -3,7 +3,13 @@ const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/
 async function plotbars()
 {
     let idFilter = "940"
-    const data = d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].sample_values.slice(0,10))
+    let data = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].sample_values.slice(0,10))
     console.log(data)
+    data.reverse()
+    let trace1 =
+    {
+        y:data,
+        type:"bar"
+    }
 }
 plotbars()
