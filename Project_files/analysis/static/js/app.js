@@ -3,13 +3,16 @@ const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/
 async function plotbars()
 {
     let idFilter = "940"
-    let data = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].sample_values.slice(0,10))
-    console.log(data)
-    data.reverse()
+    let xdata = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].sample_values.slice(0,10))
+    let ydata = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].otu_ids.slice(0,10).map(x => x.toString()))
+    console.log(xdata)
+    console.log(ydata)
+    xdata.reverse()
+    ydata.reverse()
     let trace1 =
     {
-        x:data,
-        y:["a","b","c","d","e","f","g","h","i","j"],
+        x:xdata,
+        y:ydata,
         type:"bar",
         orientation:"h"
     }
