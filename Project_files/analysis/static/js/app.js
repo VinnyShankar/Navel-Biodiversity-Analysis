@@ -4,7 +4,7 @@ async function plotbars()
 {
     let idFilter = "940"
     let xdata = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].sample_values.slice(0,10))
-    let ydata = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].otu_ids.slice(0,10).map(x => x.toString()))
+    let ydata = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].otu_ids.slice(0,10).map(x => "OTU " + x.toString()))
     console.log(xdata)
     console.log(ydata)
     xdata.reverse()
