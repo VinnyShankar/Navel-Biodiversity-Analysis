@@ -31,7 +31,6 @@ async function plotAll(sample_id)
     let metaData = await d3.json(url)
                 .then(x => x.metadata
                 .filter(x => x.id == sample_id)[0])
-    console.log(metaData.id)
 
     // Reverse arrays for Plotly
     xdata.reverse()
@@ -53,10 +52,13 @@ async function plotAll(sample_id)
     Plotly.newPlot("bar",bardata)
 
     // Metadata
-    // let mdata = await d3.select(url).then(x => console.log(x))
-    // let demInfo = d3.select("#sample-metadata")
-    // let newInfo = demInfo.append("text")
-    // newInfo.text(mdata)
+    let demInfo = d3.select("#sample-metadata")
+    let newInfo = demInfo.append("text")
+    for (x in metaData)
+    {
+        newInfo.append("small").text(x)
+        newInfo.append("br")
+    }
 }
 
 // Default plot
