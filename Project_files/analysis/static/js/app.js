@@ -54,9 +54,9 @@ async function plotAll(sample_id)
     // Metadata
     let demInfo = d3.select("#sample-metadata")
     let newInfo = demInfo.append("text")
-    for (x in metaData)
+    for (const [x,y] of Object.entries(metaData))
     {
-        newInfo.append("small").text(x)
+        newInfo.append("small").text(`${x}: ${y}`)
         newInfo.append("br")
     }
 }
