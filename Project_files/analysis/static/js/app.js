@@ -11,5 +11,7 @@ async function plotbars()
         y:data,
         type:"bar"
     }
+    bardata = [trace1]
+    Plotly.newPlot("bar",bardata)
 }
 plotbars()
