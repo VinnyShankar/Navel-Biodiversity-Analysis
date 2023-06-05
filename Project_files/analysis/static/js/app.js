@@ -4,15 +4,19 @@ async function plotbars()
 {
     let idFilter = "940"
     let xdata = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].sample_values.slice(0,10))
-    let ydata = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].otu_ids.slice(0,10).map(x => "OTU " + x.toString()))
+    let ylabel = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].otu_ids.slice(0,10).map(x => "OTU " + x.toString()))
+    let yhover = await d3.json(url).then(x => x.samples.filter(x => x.id == idFilter)[0].otu_labels.slice(0,10))
     console.log(xdata)
-    console.log(ydata)
+    console.log(ylabel)
+    console.log(yhover)
     xdata.reverse()
-    ydata.reverse()
+    ylabel.reverse()
+    yhover.reverse()
     let trace1 =
     {
         x:xdata,
-        y:ydata,
+        y:ylabel,
+        text:yhover,
         type:"bar",
         orientation:"h"
     }
