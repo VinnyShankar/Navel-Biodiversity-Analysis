@@ -75,7 +75,12 @@ async function plotAll(sample_id)
 
     bardata = [trace1]
 
-    Plotly.newPlot("bar",bardata)
+    let barlayout = 
+    {
+        title: "Number of Colonies per Taxonomic Group"
+    }
+
+    Plotly.newPlot("bar",bardata,barlayout)
 
     // Populate Demographic Info
     let demInfo = d3.select("#sample-metadata")
@@ -93,7 +98,7 @@ async function plotAll(sample_id)
     {
         x:otuIds,
         y:sampleValues,
-        mode: 'markers',
+        mode: "markers",
         marker:
         {
           size:sampleValues,
@@ -102,17 +107,24 @@ async function plotAll(sample_id)
         text:otuLabels
     }
       
-      let bubbledata = [trace2];
+    let bubbledata = [trace2];
       
-      let bubblelayout = 
-      {
-        title: 'Marker Size',
-        showlegend: false,
-        height: 600,
-        width: 1500
-      };
-      
-      Plotly.newPlot("bubble", bubbledata, bubblelayout);
+    let bubblelayout = 
+    {
+    title: "Number of Colonies per Taxonomic Group",
+    xaxis:
+    {
+        title:
+        {
+            text:"OTU ID"
+        }
+    },
+    showlegend: false,
+    height: 600,
+    width: 1500
+    };
+    
+    Plotly.newPlot("bubble", bubbledata, bubblelayout);
       
 }
 
