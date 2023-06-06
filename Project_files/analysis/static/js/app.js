@@ -79,9 +79,10 @@ async function plotAll(sample_id)
 
     Plotly.newPlot("bar",bardata,barlayout)
 
-    // Populate Demographic Info
-    let demInfo = d3.select("#sample-metadata")
-    demInfo.selectAll("small").text("")
+    // Clear the Demographic Info
+    let demInfo = d3.select("#sample-metadata").html("")
+
+    // Populate the Demographic Info
     let newInfo = demInfo.append("text")
     for (const [x,y] of Object.entries(metaData))
     {
