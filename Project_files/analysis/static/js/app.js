@@ -11,52 +11,49 @@ async function plotAll(sample_id)
     let data = await d3.json(url)
                .then(x => x.samples
                .filter(x => x.id == idFilter)[0])
-    
-    console.log(data)
 
     // Sample Values
     let sampleValues = data
                        .sample_values
-    
-    console.log(sampleValues)
 
     // Top 10 OTUs
     let toptenOTUs = sampleValues
                      .slice(0,10)
 
-    console.log(toptenOTUs)
-
     // OTU ids
     let otuIds = data
                  .otu_ids
-    
-    console.log(otuIds)
     
     // OTU labels
     let otuLabels = otuIds
                     .map(x => "OTU " + x.toString())
     
-    console.log(otuLabels)
-    
     // Bar plot y labels
     let ylabel = otuLabels
                  .slice(0,10)
-
-    console.log(ylabel)
 
     // Bar plot hover text (tooltips)
     let yhover = data
                  .otu_labels
                  .slice(0,10)
     
-    console.log(yhover)
-    
     // Demographic Info for the selected indivdual
     let metaData = await d3.json(url)
                    .then(x => x.metadata
                    .filter(x => x.id == sample_id)[0])
-
-    console.log(metaData)
+    
+    // Dropdown menu options
+    let dropData = await d3.json(url)
+                         .then(x => x.names)
+    
+    // Populate dropdown menu
+    let selectOption = d3.select("#selDataset")
+    for (const x in dropData)
+    {
+        selectOption
+        .append("option")
+        .text(dropData[x])
+    }
 
     // Reverse arrays for Plotly
     toptenOTUs.reverse()
@@ -102,7 +99,8 @@ async function plotAll(sample_id)
         marker:
         {
           size:sampleValues,
-          color:otuIds
+          color:otuIds,
+          colorscale:"Earth"
         },
         text:otuLabels
     }
