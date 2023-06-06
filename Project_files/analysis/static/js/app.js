@@ -1,4 +1,4 @@
-// Use the D3 library to read the .json from the url
+// Use the D3 library to read samples.json from the url
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
 
 // Dashboard function
@@ -27,10 +27,10 @@ async function plotAll(sample_id)
                 .filter(x => x.id == idFilter)[0]
                 .otu_labels.slice(0,10))
     
-    // Metadata
+    // Demographic Info for the selected indivdual
     let metaData = await d3.json(url)
-                .then(x => x.metadata
-                .filter(x => x.id == sample_id)[0])
+                   .then(x => x.metadata
+                   .filter(x => x.id == sample_id)[0])
 
     // Reverse arrays for Plotly
     xdata.reverse()
@@ -51,7 +51,7 @@ async function plotAll(sample_id)
 
     Plotly.newPlot("bar",bardata)
 
-    // Metadata
+    // Populate Demographic Info
     let demInfo = d3.select("#sample-metadata")
     let newInfo = demInfo.append("text")
     for (const [x,y] of Object.entries(metaData))
