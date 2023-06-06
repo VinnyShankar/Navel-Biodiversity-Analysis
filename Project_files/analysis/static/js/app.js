@@ -11,20 +11,38 @@ async function plotAll(sample_id)
     let data = await d3.json(url)
                .then(x => x.samples
                .filter(x => x.id == idFilter)[0])
+    
+    console.log(data)
 
-    // Top 10 OTUs for the selected individual
-    let xdata = data
-                .sample_values
-                .slice(0,10)
+    // Sample Values
+    let sampleValues = data
+                       .sample_values
+    
+    console.log(sampleValues)
+
+    // Top 10 OTUs
+    let toptenOTUs = sampleValues
+                     .slice(0,10)
+
+    console.log(toptenOTUs)
 
     // OTU ids
     let otuIds = data
                  .otu_ids
-                 .slice(0,10)
+    
+    console.log(otuIds)
+    
+    // OTU labels
+    let otuLabels = otuIds
+                    .map(x => "OTU " + x.toString())
+    
+    console.log(otuLabels)
     
     // Bar plot y labels
-    let ylabel = otuIds
-                 .map(x => "OTU " + x.toString())
+    let ylabel = otuLabels
+                 .slice(0,10)
+
+    console.log(ylabel)
 
     // Bar plot hover text (tooltips)
     let yhover = data
@@ -38,15 +56,17 @@ async function plotAll(sample_id)
                    .then(x => x.metadata
                    .filter(x => x.id == sample_id)[0])
 
+    console.log(metaData)
+
     // Reverse arrays for Plotly
-    xdata.reverse()
+    toptenOTUs.reverse()
     ylabel.reverse()
     yhover.reverse()
 
     // Plotly bar plot
     let trace1 =
     {
-        x:xdata,
+        x:toptenOTUs,
         y:ylabel,
         text:yhover,
         type:"bar",
@@ -62,20 +82,25 @@ async function plotAll(sample_id)
     let newInfo = demInfo.append("text")
     for (const [x,y] of Object.entries(metaData))
     {
-        newInfo.append("small").text(`${x}: ${y}`)
+        newInfo.append("small")
+               .text(`${x}: ${y}`)
+        
         newInfo.append("br")
     }
 
     // Plotly bubble chart
     let trace2 = 
     {
-        x: [1, 2, 3, 4],
-        y: [10, 11, 12, 13],
+        x:otuIds,
+        y:sampleValues,
         mode: 'markers',
-        marker: {
-          size: [40, 60, 80, 100]
-        }
-      };
+        marker:
+        {
+          size:sampleValues,
+          color:otuIds
+        },
+        text:otuLabels
+    }
       
       let bubbledata = [trace2];
       
@@ -84,7 +109,7 @@ async function plotAll(sample_id)
         title: 'Marker Size',
         showlegend: false,
         height: 600,
-        width: 600
+        width: 1500
       };
       
       Plotly.newPlot("bubble", bubbledata, bubblelayout);
