@@ -81,6 +81,7 @@ async function plotAll(sample_id)
 
     // Populate Demographic Info
     let demInfo = d3.select("#sample-metadata")
+    demInfo.selectAll("small").text("")
     let newInfo = demInfo.append("text")
     for (const [x,y] of Object.entries(metaData))
     {
@@ -128,3 +129,8 @@ async function plotAll(sample_id)
 
 // Default plot
 plotAll("940")
+
+function optionChanged(x)
+{
+    plotAll(x)
+}
