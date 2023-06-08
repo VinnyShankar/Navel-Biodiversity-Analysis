@@ -1,6 +1,13 @@
 // Use the D3 library to read samples.json from the url
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
 
+// Populate the dropdown menu
+d3.json(url)
+.then(x => x.names
+.map(x => d3.select("#selDataset")
+          .append("option")
+          .text(x)))
+
 // Dashboard function
 async function plotAll(sample_id)
 {
@@ -41,16 +48,6 @@ async function plotAll(sample_id)
     let metaData = await d3.json(url)
                    .then(x => x.metadata
                    .filter(x => x.id == sample_id)[0])
-    
-    // Dropdown menu options
-    let dropData = await d3.json(url)
-                   .then(x => x.names)
-    
-    // Populate dropdown menu
-    let selectOption = d3.select("#selDataset")
-    dropData.map(x => selectOption
-            .append("option")
-            .text(x))
 
     // Reverse arrays for Plotly
     toptenOTUs.reverse()
@@ -64,7 +61,12 @@ async function plotAll(sample_id)
         y:ylabel,
         text:yhover,
         type:"bar",
-        orientation:"h"
+        orientation:"h",
+        marker:
+        {
+            color:toptenOTUs,
+            colorscale:"Grayred"
+        }
     }
 
     bardata = [trace1]
@@ -118,7 +120,7 @@ async function plotAll(sample_id)
     },
     showlegend: false,
     height: 600,
-    width: 1500
+    width: 1200
     }
     
     Plotly.newPlot("bubble",bubbledata,bubblelayout)
@@ -132,7 +134,7 @@ async function plotAll(sample_id)
           value: metaData.wfreq,
           title: 
           {
-            text:"Scrubs per Week",
+            text:"Navel Washing Frequency <br><sub> Scrubs per Week </sub>",
             font:{size:24}
           },
           gauge: 
@@ -143,27 +145,27 @@ async function plotAll(sample_id)
                 tickwidth:1,
                 tickcolor:"darkblue"
             },
-            bar: {color:"darkblue"},
+            bar: {color:"ff4800"},
             bgcolor: "white",
             borderwidth: 2,
             bordercolor: "gray",
             steps: 
             [
-              {range: [0, 1], color: "cyan"},
-              {range: [1, 2], color: "royalblue"},
-              {range: [2, 3], color: "cyan"},
-              {range: [3, 4], color: "royalblue"},
-              {range: [4, 5], color: "cyan"},
-              {range: [5, 6], color: "royalblue"},
-              {range: [6, 7], color: "cyan" },
-              {range: [7, 8], color: "royalblue" },
-              {range: [8, 9], color: "cyan" },
+              {range: [0, 1], color: "F3F520"},
+              {range: [1, 2], color: "E2F11D"},
+              {range: [2, 3], color: "D1ED19"},
+              {range: [3, 4], color: "C0E916"},
+              {range: [4, 5], color: "AFE513"},
+              {range: [5, 6], color: "9DE10F"},
+              {range: [6, 7], color: "8CDD0C" },
+              {range: [7, 8], color: "7BD909" },
+              {range: [8, 9], color: "6AD505" },
             ],
             threshold: 
             {
               line: {color:"red",width:4},
               thickness: 0.75,
-              value: 490
+              value: 9
             }
           }
         }
@@ -171,7 +173,7 @@ async function plotAll(sample_id)
       
       let gaugelayout = 
       {
-        width: 500,
+        width: 400,
         height: 400,
         margin: {t:25,r:25,l:25,b:25},
         font: 
