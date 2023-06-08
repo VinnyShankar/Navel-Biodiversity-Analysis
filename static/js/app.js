@@ -122,12 +122,74 @@ async function plotAll(sample_id)
     }
     
     Plotly.newPlot("bubble",bubbledata,bubblelayout)
+
+    // Gauge
+    let gaugedata = 
+    [
+        {
+          type: "indicator",
+          mode: "gauge+number",
+          value: metaData.wfreq,
+          title: 
+          {
+            text:"Scrubs per Week",
+            font:{size:24}
+          },
+          gauge: 
+          {
+            axis: 
+            {
+                range:[null,9],
+                tickwidth:1,
+                tickcolor:"darkblue"
+            },
+            bar: {color:"darkblue"},
+            bgcolor: "white",
+            borderwidth: 2,
+            bordercolor: "gray",
+            steps: 
+            [
+              {range: [0, 1], color: "cyan"},
+              {range: [1, 2], color: "royalblue"},
+              {range: [2, 3], color: "cyan"},
+              {range: [3, 4], color: "royalblue"},
+              {range: [4, 5], color: "cyan"},
+              {range: [5, 6], color: "royalblue"},
+              {range: [6, 7], color: "cyan" },
+              {range: [7, 8], color: "royalblue" },
+              {range: [8, 9], color: "cyan" },
+            ],
+            threshold: 
+            {
+              line: {color:"red",width:4},
+              thickness: 0.75,
+              value: 490
+            }
+          }
+        }
+      ];
+      
+      let gaugelayout = 
+      {
+        width: 500,
+        height: 400,
+        margin: {t:25,r:25,l:25,b:25},
+        font: 
+        {
+            color: "darkblue",
+            family: "Arial" 
+        }
+      };
+      
+      Plotly.newPlot("gauge", gaugedata, gaugelayout);
+      
       
 }
 
-// Default plot
+// Default dashboard view
 plotAll("940")
 
+// Repopulate dashboard based on user selection
 function optionChanged(x)
 {
     plotAll(x)
