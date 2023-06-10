@@ -4,9 +4,10 @@ const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/
 // Populate the dropdown menu
 d3.json(url)
 .then(x => x.names
-.map(x => d3.select("#selDataset")
-          .append("option")
-          .text(x)))
+.map(x => d3
+.select("#selDataset")
+.append("option")
+.text(x)))
 
 // Dashboard function
 async function plotAll(sample_id)
@@ -33,7 +34,7 @@ async function plotAll(sample_id)
     
     // OTU labels
     let otuLabels = otuIds
-                    .map(x => "OTU " + x.toString())
+                    .map(x => "OTU " + x)
     
     // Bar plot y labels
     let ylabel = otuLabels
@@ -143,7 +144,8 @@ async function plotAll(sample_id)
             {
                 range:[null,9],
                 tickwidth:1,
-                tickcolor:"darkblue"
+                tickcolor:"darkblue",
+                tickvals:[...Array(10).keys()]
             },
             bar: {color:"ff4800"},
             bgcolor: "white",
@@ -157,9 +159,9 @@ async function plotAll(sample_id)
               {range: [3, 4], color: "C0E916"},
               {range: [4, 5], color: "AFE513"},
               {range: [5, 6], color: "9DE10F"},
-              {range: [6, 7], color: "8CDD0C" },
-              {range: [7, 8], color: "7BD909" },
-              {range: [8, 9], color: "6AD505" },
+              {range: [6, 7], color: "8CDD0C"},
+              {range: [7, 8], color: "7BD909"},
+              {range: [8, 9], color: "6AD505"},
             ],
             threshold: 
             {
@@ -169,7 +171,7 @@ async function plotAll(sample_id)
             }
           }
         }
-      ];
+      ]
       
       let gaugelayout = 
       {
@@ -183,7 +185,7 @@ async function plotAll(sample_id)
         }
       };
       
-      Plotly.newPlot("gauge", gaugedata, gaugelayout);
+      Plotly.newPlot("gauge", gaugedata, gaugelayout)
       
       
 }
