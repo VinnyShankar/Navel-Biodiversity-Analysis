@@ -104,7 +104,7 @@ async function plotAll(sample_id)
           color:otuIds,
           colorscale:"Earth"
         },
-        text:otuLabels
+        text:data.otu_labels
     }
       
     let bubbledata = [trace2];
