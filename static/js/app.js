@@ -74,7 +74,7 @@ async function plotAll(sample_id)
 
     let barlayout = 
     {
-        title: "Number of Colonies per Taxonomic Group"
+        title: "Bacterial Abundance per Taxonomic Group"
     }
 
     Plotly.newPlot("bar",bardata,barlayout)
@@ -111,7 +111,7 @@ async function plotAll(sample_id)
       
     let bubblelayout = 
     {
-    title: "Number of Colonies per Taxonomic Group",
+    title: "Bacterial Abundance per Taxonomic Group",
     xaxis:
     {
         title:
